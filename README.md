@@ -1,5 +1,4 @@
-## Hi there 👋 I am Umar Farooq,
-### a Web & Mobile Developer!
+## Hi there 👋 I am Umar Farooq, Web & Mobile Developer!
 
 - 🔭 I’m currently working on Fanz.ai & GeekyAcademy
 - 🌱 I’m currently learning MongoDB & Backend with Node.js/Express.js
