@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding the Event Loop | Umar Farooq</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="/assets/fontawesome/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <header class="main-header"></header>
+
+    <main>
+        <article class="section blog-article">
+            <header class="article-header">
+                <h1 class="article-title">Understanding the Event Loop in Node.js</h1>
+                <p class="blog-post-meta">Published on July 15, 2025 by Umar Farooq</p>
+            </header>
+
+            <div class="article-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+                
+                <img src="/assets/placeholder-image.png" alt="Descriptive alt text" class="article-image">
+                
+                <h2>Phases of the Event Loop</h2>
+                <p>Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue.</p>
+                
+                <pre><code class="language-js">
+                
+                    const fs = require('fs');
+
+                    fs.readFile(__filename, () => {
+                        console.log('File read complete.');
+                    });
+
+                    setTimeout(() => {
+                        console.log('Timer callback executed.');
+                    }, 0);
+
+                    console.log('Script end.');
+                </code></pre>
+
+                <p>Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. </p>
+            </div>
+        </article>
+    </main>
+
+    <footer class="main-footer"></footer>
+    <script src="/js/main.js"></script>
+    </body>
+</html>
