@@ -62,7 +62,7 @@ main {
     background-color: var(--accent-color);
 }
 
-.resume-button {
+.button {
     background-color: transparent;
     border: 1px solid var(--accent-color);
     color: var(--accent-color);
@@ -74,7 +74,7 @@ main {
     font-size: 1rem;
 }
 
-.resume-button:hover {
+.button:hover {
     background-color: var(--accent-hover);
 }
 

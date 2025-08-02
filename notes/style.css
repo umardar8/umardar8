@@ -1,0 +1,89 @@
+/* Styles for the OneNote-like layout */
+        .notes-page-container {
+            padding-top: 40px; /* Space below the header */
+        }
+        .notes-layout {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        
+        /* Sidebar for Tabs */
+        .notes-sidebar {
+            width: 240px;
+            flex-shrink: 0;
+            background-color: var(--bg-light-dark);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .notes-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .notes-sidebar .tab-link {
+            display: block;
+            padding: 15px 20px;
+            border-radius: 6px;
+            color: var(--text-slate);
+            font-family: var(--font-main);
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .notes-sidebar .tab-link:hover {
+            background-color: var(--accent-hover);
+            color: var(--text-light);
+        }
+        
+        /* Style for the active/selected tab */
+        .notes-sidebar .tab-link.active {
+            background-color: var(--accent-color);
+            color: var(--bg-dark);
+        }
+        
+        /* Main Content Area */
+        .notes-content {
+            flex-grow: 1;
+        }
+
+        .content-panel {
+            display: none; /* Hide all content panels by default */
+        }
+
+        .content-panel.active {
+            display: block; /* Show only the active one */
+        }
+
+        .content-panel h3 {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #666;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: var(--text-slate);
+    }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .notes-layout {
+                flex-direction: column;
+            }
+            .notes-sidebar {
+                width: 100%;
+            }
+        }

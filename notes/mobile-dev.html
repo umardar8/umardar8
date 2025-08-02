@@ -3,27 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile App Development Notes | Umar Farooq</title>
+    <title>Course Notes | Umar Farooq</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="../assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css"> <link href="../assets/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+
     <header class="main-header"></header>
+
     <main>
-        <section class="section">
-            <h2 class="section-title">SW-327: Mobile App Development Notes</h2>
-            <div class="notes-container">
-                <div style="width:100%; height:600px; background:var(--bg-dark); border-radius: 8px; display:flex; align-items:center; justify-content:center; color: var(--text-slate);">
-                    <p>OneNote embed for Mobile App Development will be placed here.</p>
+        <section class="section notes-page-container">
+            <h2 class="section-title">SW-224: Simulation & Modelling</h2>
+
+            <div class="notes-layout">
+                <nav class="notes-sidebar">
+                    <ul>
+                        <li><a href="#" class="tab-link active" data-target="content-syllabus"><i class="fas fa-file-alt fa-fw"></i> Syllabus</a></li>
+                        <li><a href="#" class="tab-link" data-target="content-week-1-4"><i class="fas fa-book fa-fw"></i> Week 1-4</a></li>
+                        <li><a href="#" class="tab-link" data-target="content-week-5-8"><i class="fas fa-book fa-fw"></i> Week 5-8</a></li>
+                        <li><a href="#" class="tab-link" data-target="content-sessional"><i class="fas fa-star fa-fw"></i> Sessional Marks</a></li>
+                    </ul>
+                </nav>
+
+                <div class="notes-content">
+                    <div id="content-syllabus" class="content-panel active">
+                        <h3>Course Syllabus & Teaching Plan</h3>
+                        <div class="notes-container">
+                            <iframe src="https://muet14-my.sharepoint.com/:o:/g/personal/umer_farooq_teacher_muet_edu_pk/EsDbkoxvs4FHire6Dhsb7cMBxe_ZbO8FpEy0vuu55wYzRA?e=cyAwn4" width="100%" height="600px" style="border:none; border-radius: 8px;"></iframe>
+                        </div>
+                        <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div>
+                    </div>
+
+                    <div id="content-week-1-4" class="content-panel">
+                        <h3>Notes: Week 1-4</h3>
+                        <div class="notes-container">
+                            <div style="width:100%; height:600px; background:var(--bg-dark); border-radius: 8px; display:flex; align-items:center; justify-content:center; color: var(--text-slate);"><p>OneNote embed for Week 1-4 will be placed here.</p></div>
+                        </div>
+                        <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div>
+                    </div>
+
+                    <div id="content-week-5-8" class="content-panel">
+                        <h3>Notes: Week 5-8</h3>
+                        <div class="notes-container">
+                            <div style="width:100%; height:600px; background:var(--bg-dark); border-radius: 8px; display:flex; align-items:center; justify-content:center; color: var(--text-slate);"><p>OneNote embed for Week 5-8 will be placed here.</p></div>
+                        </div>
+                         <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div>
+                    </div>
+
+                    <div id="content-sessional" class="content-panel">
+                        <h3>Sessional Marks</h3>
+                        <div class="notes-container">
+                             <div style="width:100%; height:600px; background:var(--bg-dark); border-radius: 8px; display:flex; align-items:center; justify-content:center; color: var(--text-slate);"><p>Embedded spreadsheet for Sessional Marks will be placed here.</p></div>
+                        </div>
+                         <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            <div class="ad-container" style="margin-top: 40px;">
-                <span>Ad Banner Space</span>
             </div>
         </section>
     </main>
+    
     <footer class="main-footer"></footer>
+
     <script src="../js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-link');
+            const contents = document.querySelectorAll('.content-panel');
+
+            // Set the first tab and content as active initially
+            tabs[0].classList.add('active');
+            contents[0].classList.add('active');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to the clicked tab and its corresponding content
+                    tab.classList.add('active');
+                    const targetId = tab.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
