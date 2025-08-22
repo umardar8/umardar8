@@ -25,7 +25,8 @@
                         <li><a href="#" class="tab-link" data-target="lecture 2"><i class="fas fa-book fa-fw"></i> 2. Advantages and Disadvantages</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 3"><i class="fas fa-book fa-fw"></i> 3. Types</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 4"><i class="fas fa-book fa-fw"></i> 4. Classification of Simulation Software</a></li>
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 5"><i class="fas fa-book fa-fw"></i> 5. Simulation of one Server Queue System</a></li> -->
+                        <li><a href="#" class="tab-link" data-target="lecture 5"><i class="fas fa-book fa-fw"></i> 5. Simulation of one Server Queue System</a></li>
+                        <li><a href="#" class="tab-link" data-target="gpss"><i class="fas fa-book fa-fw"></i> 5A. Basics of GPSS</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 6"><i class="fas fa-book fa-fw"></i> 6. Simulation of Two Server Queue System</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 7"><i class="fas fa-book fa-fw"></i> 7. Simulation of an Inventory System</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 8"><i class="fas fa-book fa-fw"></i> 8. Simulation of Newspaper Seller</a></li> -->
@@ -334,17 +335,164 @@
                     <div id="lecture 5" class="content-panel">
                         <h1>Topic: Simulation of one Server Queue System</h1>
                         <div class="notes-container">
-                            <h2></h2>
+                            <h2>What is a Single Server Queuing System?</h2>
+                            <p>
+                                A Single Server Queuing System is one of the simplest and most fundamental queuing models. It consists of:
+                                <ul>
+                                    <li>One server</li>
+                                    <li>One queue (FIFO - First In, First Out)</li>
+                                    <li>Customers (or entities) arriving at intervals</li>
+                                    <li>Service time per customer</li>
+                                </ul>
+                            </p>
+                            <h2>Components of a Single Server Queue:</h2>
+                            <p>
+                                <ol>
+                                    <li><b>Arrival Process:</b> Customers arrive randomly (e.g., every 5 minutes)</li>
+                                    <li><b>Queue:</b> Waiting area if the server is busy.</li>
+                                    <li><b>Server:</b> Provides service to customers one by one.</li>
+                                    <li><b>Service Time:</b> Fixed or random time taken to serve each customer.</li>
+                                    <li><b>Exit:</b> Customers leave after being served.</li>
+                                </ol>
+                            </p>
+                            <h2>Simulation Example Using GPSS</h2>
+                            <p>
+                                Simulate a bank counter where:
+                                <ul>
+                                    <li>One clerk serves customers</li>
+                                    <li>Customers arrive every 6 minutes</li>
+                                    <li>Each customer is served in 4 minutes</li>
+                                    <li>Simulate for 10 customers</li>
+                                </ul>
+                            </p>
+                            <h3>GPSS Code Example:</h3>
+                            <pre>
+                                <code>
+                                SIMULATE
+                                
+                                GENERATE 6           ; Inter-arrival time of 6 minutes
+                                QUEUE LINE           ; Join the queue if the server is busy
+                                SEIZE CLERK          ; Try to seize the server
+                                DEPART LINE          ; Leave the queue after seizing the server
+                                ADVANCE 4            ; Service time is 4 minutes
+                                RELEASE CLERK        ; Release the server after service
+                                TERMINATE 1          ; Customer exits the system
+
+                                START 10             ; Run simulation for 10 customers
+                                </code>
+                            </pre>
+                            <p>If you do not know GPSS commands and their use, check the Basics of GPSS Simulation Software</p>
                         </div>
                          <div class="ad-container" style="margin-top: 40px;">
                             <span>Ad Banner Space</span>
                         </div>
                     </div>
 
-                    <div id="lecture 6" class="content-panel">
-                        <h1>Sessional Marks</h1>
+                    <div id="gpss" class="content-panel">
+                        <h1>Basics of GPSS Simulation Software</h1>
                         <div class="notes-container">
-                            <h2></h2>
+                            <h2>What is GPSS?</h2>
+                            <p>GPSS (General Purpose Simulation System) is a discrete event simulation language used to model complex systems. It allows users to create simulation models using blocks and commands.</p>
+                            <h3>Key Components of GPSS:</h3>
+                            <ul>
+                                <li><b>Blocks:</b> Basic building blocks of a GPSS model, representing different components of the system.</li>
+                                <li><b>Commands:</b> Instructions that define the behavior of the blocks.</li>
+                                <li><b>Simulation Control:</b> Commands to start and control the simulation.</li>
+                                <li><b>Statistics Collection:</b> GPSS can collect statistics such as average wait time, service time, and queue length which are shown as results.</li>
+                            </ul>
+                            <h2>Commands:</h2> 
+                            <p>GPSS has commands in pairs such as GENERATE & TERMINATE, QUEUE & DEPART, SEIZE & RELEASE etc.</p>
+
+                            <h3>Entity Control Commands</h3>
+                            <p>
+                                <b>GENERATE</b> A,B,C,D,E,F,G,H,I
+                                <ul>
+                                    <li>A is mean time of next generation</li>
+                                    <li>B is generation time modifier</li>
+                                    <li>C is offset start time of generation</li>
+                                    <li>D is total number of entities to be generated</li> 
+                                    <li>E is initial priority of transaction</li>
+                                    <li>F through I specifies number of parameters</li>
+                                </ul>
+                            </p>
+                            <p>Example: <i>GENERATE 4,1,0,10,0</i></p>
+                            <p>It means generate 10 entities with a mean time of 4 minutes and a modifier of 1 minute.</p>
+                            <p>
+                                <b>TERMINATE</b> A
+                                <ul>
+                                    <li>A is the number of entities to be removed from the simulation.</li>
+                                    <li>TERMINATE 1 means one entity is removed from the simulation.</li>
+                                    <li>TERMINATE 0 means no entity is removed, but the start counter is decremented by 1.</li>
+                                    <li>The simulation will end only when the start counter becomes 0</li>
+                                </ul>
+                            </p>
+                            <p>Example: <i>TERMINATE 1</i></p>
+                            <p>It means one entity is removed from the simulation and the start counter is decremented by 1.</p>
+
+                            <h3>Queuing Commands</h3>
+                            <p><b>QUEUE</b> A</p>
+                            <p>A is the name of the queue where the entity will wait if the server is busy.</p>
+                            <p>Example: <i>QUEUE LINE</i></p>
+                            <p>It means the entity will join the queue named "LINE".</p>
+                            <p><b>DEPART</b> A</p>
+                            <p>A is the name of the queue from which the entity will depart after seizing the server.</p>
+                            <p>Example: <i>DEPART LINE</i></p>
+                            <p>It means the entity will leave the queue named "LINE" after seizing the server.</p>
+                            
+                            <h3>FACILITY/SERVER Commands</h3>
+                            <p><b>SEIZE</b> A</p>
+                            <p>A is the name of the server or facility that the entity will try to seize.</p>
+                            <p>Example: <i>SEIZE CLERK</i></p> 
+                            <p>It means the entity will try to seize the server named "CLERK".</p>
+                            <p><b>RELEASE</b> A</p>
+                            <p>A is the name of the server or facility that the entity will release after service.</p>
+                            <p>Example: <i>RELEASE CLERK</i></p>
+                            <p>It means the entity will release the server named "CLERK".</p>
+                            
+                            <h3>TIME Control Commands</h3>
+                            <p><b>ADVANCE</b> A,B</p>
+                            <p>A is the mean time the entity will spend in the advance block, and B is the time modifier.</p>
+                            <p>Example: <i>ADVANCE 4,3</i></p>
+                            <p>It means the entity will spend between 1 to 7 minutes in the advance block (4 + random(0,3)).</p>
+                            <p><b>RESET</b> and <b>CLEAR</b></p>
+                            <p>RESET is used when you want to restart the execution of a model while retaining all entities in queue, facilities, and storages. CLEAR is used when you want to restart the execution of a model while clearing the entities, facilities, and storages to 0.</p>
+                            <p>Example: RESET</p>
+                            <p>It will keep the entities in the queue.
+                            <p><i>CLEAR</i></p>
+                            will remove all entities and reset the simulation.</p>
+                            
+                            <h3>Simulation Control Commands</h3>
+                            <p><b>SIMULATE</b></p>
+                            <p>Used to start the simulation. If you do not use SIMULATE, your program will compile but it will not execute.</p>
+                            <p>Example: <i>SIMULATE</i></p>
+                            <p>This will start the simulation process.</p>
+                            <p><b>START</b> A,B</p>
+                            <p>A is the termination counter that is decremented when a transaction enters the terminate block, and B is used by writing NP when you do not want to show output after the end of simulation.</p>
+                            <p>Example: <b>START 250</b></p>
+                            <p>It means the simulation will end after serving 250 customers or entities.</p>
+                            
+                            <h3>Example: Drive-thru Simulation</h3>
+                            <ul>
+                                <li>Customer arrival rate from 3 to 5 minutes</li>
+                                <li>Time required to drive from main entrance to Drive-thru window: 1 minute</li>
+                                <li>Order processing rate from 1 to 7 minutes per customer</li>
+                                <li>Length of simulation: 250 customers</li>
+                            </ul>
+                            <p>GPSS Code:</p>
+                            <pre>
+                                <code>
+                                    SIMULATE                                
+                            
+                                    GENERATE 4,1 
+                                    ADVANCE 1 
+                                    SEIZE WINDOW 
+                                    ADVANCE 4,3 
+                                    RELEASE WINDOW 
+                                    TERMINATE 1 
+
+                                    START 250
+                                </code>
+                            </pre>
                         </div>
                          <div class="ad-container" style="margin-top: 40px;">
                             <span>Ad Banner Space</span>
