@@ -29,14 +29,14 @@
                         <li><a href="#" class="tab-link" data-target="lecture 2"><i class="fas fa-book fa-fw"></i> 2. Advantages and Disadvantages</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 3"><i class="fas fa-book fa-fw"></i> 3. Types</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 4"><i class="fas fa-book fa-fw"></i> 4. Classification of Simulation Software</a></li>
-                        <li><a href="#" class="tab-link" data-target="lecture 5"><i class="fas fa-book fa-fw"></i> 5. Simulation of one Server Queue System</a></li>
+                        <li><a href="#" class="tab-link" data-target="lecture 5"><i class="fas fa-book fa-fw"></i> 5. Simulation of Single Server Queue System</a></li>
                         <li><a href="#" class="tab-link" data-target="gpss"><i class="fas fa-book fa-fw"></i> 5A. Basics of GPSS</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 6"><i class="fas fa-book fa-fw"></i> 6. Simulation of Two Server Queue System</a></li>
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 7"><i class="fas fa-book fa-fw"></i> 7. Simulation of an Inventory System</a></li> -->
+                        <li><a href="#" class="tab-link" data-target="lecture 7"><i class="fas fa-book fa-fw"></i> 7. Simulation of an Inventory System</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 8"><i class="fas fa-book fa-fw"></i> 8. Simulation of Newspaper Seller</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 9"><i class="fas fa-book fa-fw"></i> 9. Simulation of the Reliability Problem</a></li> -->
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 10"><i class="fas fa-book fa-fw"></i> 10. Discrete Statistical Models in Simulation</a></li> -->
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 11"><i class="fas fa-book fa-fw"></i> 11. Continuous Statistical Models in Simulation</a></li> -->
+                        <li><a href="#" class="tab-link" data-target="lecture 8"><i class="fas fa-book fa-fw"></i> 8. Discrete Statistical Models in Simulation</a></li>
+                        <li><a href="#" class="tab-link" data-target="lecture 9"><i class="fas fa-book fa-fw"></i> 9. Continuous Statistical Models in Simulation</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 12"><i class="fas fa-book fa-fw"></i> 12. Empirical Distributions</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 13"><i class="fas fa-book fa-fw"></i> 13. Random Variables and Their Properties</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 14"><i class="fas fa-book fa-fw"></i> 14. Random Number Generation</a></li> -->
@@ -539,7 +539,7 @@
                                     <li>Time required to enter queue: 1 minute.</li>
                                     <li>Termination Condition: 16 hours.</li> 
                                 </ul>
-                                In GPSS, both servers can be managed using the same facility name with multiple units, e.g., a facility with capacity 2.
+                                <p>In GPSS, both servers can be managed using the same facility name with multiple units, e.g., a facility with capacity 2.</p>
                                 <pre>
                                     <code>
                                         SIMULATE 
@@ -573,9 +573,113 @@
                     </div>
 
                     <div id="lecture 7" class="content-panel">
-                        <h1>Topic: Simulation of an Inventory System</h1>
+                        <h1>Topic: Simulation of an Inventory Management System</h1>
                         <div class="notes-container">
-                             <p>Embedded spreadsheet for Sessional Marks will be placed here.</p>
+                             <h2>What is an Inventory Management System</h2>
+                             <p>An Inventory System manages the stock (raw materials, components, or finished goods) that a company holds for future use or sale. The main goal is to balance between:</p>
+                             <ul>
+                                <li>Too much inventory (leads to high holding costs)</li>
+                                <li>Too little inventory (causes stockouts and lost sales)</li>
+                             </ul>
+                             <p>Simulation helps in modeling these systems and analyzing performance under different scenarios.</p>
+                             <h3>Components of an Inventory System</h3>
+                             <ul>
+                                <li><b>Reorder Point (ROP):</b> The inventory level that triggers a new order.</li>
+                                <li><b>Order Quantity (Q):</b> The amount of inventory ordered when the reorder point is reached.</li>
+                                <li><b>Lead Time:</b> The time between placing an order and receiving the inventory.</li>
+                                <li><b>Demand Pattern:</b> The rate at which inventory is consumed or sold.</li>
+                                <li><b>Holding Costs:</b> Costs associated with storing unsold inventory.</li>
+                                <li><b>Stockouts:</b> Situations where demand cannot be met due to insufficient inventory.</li>
+                            </ul>
+                            <h2>How Inventory Simulation Works</h2>
+                            <p>Simulation replicates daily or weekly inventory operations using the following logic:</p>
+                            <ol>
+                                <li>Start with initial inventory.</li>
+                                <li>Subtract daily demand.</li>
+                                <li>Check if current inventory ≤ ROP → place order.</li>
+                                <li>If order is already placed, check lead time → receive items.</li>
+                                <li>Repeat over a defined time horizon (e.g., 30 days).</li>
+                                <li>Track key metrics: total shortages, average inventory, ordering cost.</li>
+                            </ol>
+                            <h2>Simulation Example with Arena Simulation Software</h2>
+                            <p>Create a Inventory Management System with Arena</p>
+                            <div style="display: flex; justify-content: center;"><iframe 
+                                width="560" 
+                                height="315" 
+                                src="https://www.youtube.com/watch?v=WlC_T7wcezs" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin" 
+                                allowfullscreen
+                            ></iframe></div>
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 8" class="content-panel">
+                        <h1>Topic: Discrete Statistical Models</h1>
+                        <div class="notes-container">
+                            <h2>What are Discrete Statistical Models?</h2>
+                            <p>Models that help simulate systems where events occur at distinct points in time. They involve random integer variables.</p>
+                            <h3>Why we use Discrete Statistical Models? (Importance of DSM)</h3>
+                            <ul>
+                                <li>Real-world systems involve randomness.</li>
+                                <li>Introduces realism by modeling uncertainty.</li>
+                                <li>Helps in probabilistic decision-making.</li>
+                                <li>Forms the basis of discrete-event simulation where randomness drives system behavior.</li>
+                            </ul>
+                            <h2>Common Distributions in Discrete Statistical Models</h2>
+                            <p><b>Bernoulli Distribution: </b>Models an experiment with two outcomes: success (1) or failure (0).</p>
+                            <p>Examples: A machine works (success) or fails (failure) on a given day. Modeling yes/no outcomes like machine up/down. </p>
+                            <p><b>Binomial Distribution: </b>Models the number of successes in a fixed number of independent Bernoulli trials.</p>
+                            <p>Examples: Number of defective items in a batch of 100. Number of successful transactions out of 50 attempts.</p>
+                            <p><b>Geometric Distribution: </b>Models the number of trials until the first success in a series of independent Bernoulli trials.</p>
+                            <p>Examples: Number of coin flips until the first heads. Number of customer calls until the first sale.</p>
+                            <p><b>Poisson Distribution: </b>Models the number of events occurring in a fixed interval of time or space, given a known average rate.</p>
+                            <p>Examples: Number of customer arrivals at a service center in an hour. Number of emails received in a day.</p>
+                            <p><b>Discrete Uniform Distribution: </b>Models the number of outcomes in which each value in a finite set has equal probability.</p>
+                            <p>Examples: Rolling a fair die (values 1 to 6, equally likely). Simulating random selection or fair games. </p>
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 9" class="content-panel">
+                        <h1>Topic: Continuous Statistical Models in Simulation</h1>
+                        <div class="notes-container">
+                            <h2>What are Continuous Statistical Models</h2>
+                            <p>Models that introduce random variables in a simulation that can take any value within a range (not just integers).</p>
+                            <p>
+                                Examples: 
+                                <ul>
+                                    <li>The time between arrivals at a bus stop (e.g., 1.2 hours)</li>
+                                    <li>Temperature readings (e.g., 36.6°C)</li>
+                                    <li>Height of individuals (e.g., 5.9 feet)</li>
+                            </p>
+                            <h3>Why we use Continuous Statistical Models? (Importance of CSM)</h3>
+                            <ul>
+                                <li>Many real-world phenomena are continuous in nature.</li>
+                                <li>Provides a more accurate representation of systems where values can vary smoothly.</li>
+                                <li>Helps in modeling time, distance, and other continuous variables.</li>
+                                <li>Essential for simulations involving physical processes, finance, and natural phenomena.</li>
+                                <li>Widely used in Stochastic Simulations.</li>
+                            </ul>
+                            <h3>Common Continuous Statistical Models</h3>
+                            <p><b>Uniform Distribution: </b>Every value in a range [a, b] is equally likely. </p>
+                            <p>Example: Random number generation, Rolling a fair die. Each number (1 to 6) has the same chance.</p>
+                            <p><b>Normal (Gaussian) Distribution: </b>Bell-shaped curve defined by mean (μ) and standard deviation (σ). </p>
+                            <p>Example: Heights of people, Test scores. Most values cluster around the mean.</p>
+                            <p><b>Exponential Distribution: </b>Models time between events in a Poisson process. </p>
+                            <p>Example: Time between arrivals at a service center, Lifespan of electronic components.</p>
+                            <p><b>Log-Normal Distribution: </b>Used when the logarithm of the variable is normally distributed. </p>
+                            <p>Example: Stock prices, Income distribution. Values are positively skewed.</p>
+                            <p><b>Triangular Distribution: </b>Defined by minimum, maximum, and most likely value.</p>
+                            <p>Example: Project completion time, homework/task time.</p>
+
                         </div>
                          <!-- <div class="ad-container" style="margin-top: 40px;">
                             <span>Ad Banner Space</span>
