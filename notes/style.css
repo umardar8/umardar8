@@ -17,6 +17,10 @@
             padding: 15px;
         }
 
+        .mobile-tab-trigger {
+            display: none; /* Hidden on desktop */
+        }
+
         .notes-sidebar ul {
             list-style: none;
             padding: 0;
@@ -24,7 +28,9 @@
         }
 
         .notes-sidebar .tab-link {
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 15px;
             padding: 15px 20px;
             border-radius: 6px;
             color: var(--text-slate);
@@ -46,16 +52,14 @@
         }
         
         /* Main Content Area */
-        .notes-content {
-            flex-grow: 1;
-        }
+        .notes-content { flex-grow: 1; }
 
         .notes-container {
             width:100%; 
             background:var(--bg-dark); 
             display:flex; 
             flex-direction: column; 
-            justify-content:center; 
+            justify-content: center; 
             text-align: justify; 
             text-justify: inter-word; 
             color: var(--text-light);
@@ -106,24 +110,90 @@
         }
 
         table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #666;
-      padding: 10px;
-      text-align: left;
-    }
-    th {
-      background-color: var(--bg-light-dark);
-    }
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #666;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--bg-light-dark);
+        }
 
-        /* Responsive adjustments */
+        /* Responsive adjustments
         @media (max-width: 768px) {
             .notes-layout {
                 flex-direction: column;
             }
             .notes-sidebar {
                 width: 100%;
+            }
+        } */
+
+        /* ============================================== */
+        /* ===== MOBILE-FRIENDLY STYLES START HERE ===== */
+        /* ============================================== */
+        @media (max-width: 768px) {
+            .notes-layout { flex-direction: column; }
+            
+            /* Sidebar becomes a container for the dropdown */
+            .notes-sidebar {
+                width: 100%;
+                background: none;
+                padding: 0;
+                position: relative; /* Crucial for positioning the dropdown */
+            }
+
+            /* Style the mobile dropdown trigger button */
+            .mobile-tab-trigger {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding: 15px 20px;
+                background-color: var(--bg-light-dark);
+                color: var(--text-light);
+                border: 1px solid var(--text-slate);
+                border-radius: 6px;
+                font-family: var(--font-main);
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .mobile-tab-trigger .trigger-text {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            
+            /* Hide the list by default on mobile */
+            .notes-sidebar ul {
+                display: none;
+                position: absolute;
+                top: 100%; /* Position below the button */
+                left: 0;
+                right: 0;
+                background-color: var(--bg-light-dark);
+                border: 1px solid var(--text-slate);
+                border-radius: 6px;
+                margin-top: 5px;
+                z-index: 10;
+                max-height: 300px; /* Limit height */
+                overflow-y: auto; /* Make it scrollable */
+                padding: 5px;
+            }
+            
+            /* Show the list when 'open' class is added by JS */
+            .notes-sidebar ul.open {
+                display: block;
+            }
+            
+            /* Make sure the active tab is still highlighted in the dropdown */
+            .notes-sidebar .tab-link.active {
+                background-color: var(--accent-color);
+                color: var(--bg-dark);
             }
         }

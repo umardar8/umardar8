@@ -19,6 +19,10 @@
 
             <div class="notes-layout">
                 <nav class="notes-sidebar">
+                    <button class="mobile-tab-trigger">
+                        <span class="trigger-text">Select a topic...</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
                     <ul>
                         <li><a href="#" class="tab-link active" data-target="content-syllabus"><i class="fas fa-file-alt fa-fw"></i> Syllabus</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 1"><i class="fas fa-book fa-fw"></i> 1. Introduction</a></li>
@@ -481,9 +485,9 @@
                             <p>GPSS Code:</p>
                             <pre>
                                 <code>
-                                    SIMULATE                                
+                                    SIMULATE; start the simulation
                             
-                                    GENERATE 4,1 
+                                    GENERATE 4,1
                                     ADVANCE 1 
                                     SEIZE WINDOW 
                                     ADVANCE 4,3 
@@ -522,25 +526,83 @@
         document.addEventListener('DOMContentLoaded', () => {
             const tabs = document.querySelectorAll('.tab-link');
             const contents = document.querySelectorAll('.content-panel');
+            const mobileTrigger = document.querySelector('.mobile-tab-trigger');
+            const tabList = document.querySelector('.notes-sidebar ul');
+            const triggerText = document.querySelector('.trigger-text');
 
-            // Set the first tab and content as active initially
-            tabs[0].classList.add('active');
-            contents[0].classList.add('active');
+            function setActiveState(activeTab) {
+                // Deactivate all
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
 
+                // Activate the target
+                activeTab.classList.add('active');
+                const targetId = activeTab.getAttribute('data-target');
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+
+                // Update mobile trigger text
+                const activeTabText = activeTab.querySelector('i').nextSibling.textContent.trim();
+                triggerText.textContent = activeTabText;
+            }
+
+            // Set initial state
+            if(tabs.length > 0) {
+                setActiveState(tabs[0]);
+            }
+
+            // Mobile dropdown toggle
+            if(mobileTrigger) {
+                mobileTrigger.addEventListener('click', () => {
+                    tabList.classList.toggle('open');
+                });
+            }
+
+            // Tab click logic
             tabs.forEach(tab => {
                 tab.addEventListener('click', (e) => {
                     e.preventDefault();
-
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    contents.forEach(c => c.classList.remove('active'));
-
-                    // Add active class to the clicked tab and its corresponding content
-                    tab.classList.add('active');
-                    const targetId = tab.getAttribute('data-target');
-                    document.getElementById(targetId).classList.add('active');
+                    setActiveState(tab);
+                    // Close dropdown after selection on mobile
+                    if (window.innerWidth <= 768) {
+                        tabList.classList.remove('open');
+                    }
                 });
             });
+
+            // Tab click logic
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setActiveState(tab);
+                    // Close dropdown after selection on mobile
+                    if (window.innerWidth <= 768) {
+                        tabList.classList.remove('open');
+                    }
+                });
+            });
+
+            // Set the first tab and content as active initially
+            // tabs[0].classList.add('active');
+            // contents[0].classList.add('active');
+            
+
+            // tabs.forEach(tab => {
+            //     tab.addEventListener('click', (e) => {
+            //         e.preventDefault();
+
+            //         // Remove active class from all tabs and contents
+            //         tabs.forEach(t => t.classList.remove('active'));
+            //         contents.forEach(c => c.classList.remove('active'));
+
+            //         // Add active class to the clicked tab and its corresponding content
+            //         tab.classList.add('active');
+            //         const targetId = tab.getAttribute('data-target');
+            //         document.getElementById(targetId).classList.add('active');
+            //     });
+            // });
         });
     </script>
 </body>
