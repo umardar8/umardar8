@@ -31,7 +31,7 @@
                         <li><a href="#" class="tab-link" data-target="lecture 4"><i class="fas fa-book fa-fw"></i> 4. Classification of Simulation Software</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 5"><i class="fas fa-book fa-fw"></i> 5. Simulation of one Server Queue System</a></li>
                         <li><a href="#" class="tab-link" data-target="gpss"><i class="fas fa-book fa-fw"></i> 5A. Basics of GPSS</a></li>
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 6"><i class="fas fa-book fa-fw"></i> 6. Simulation of Two Server Queue System</a></li> -->
+                        <li><a href="#" class="tab-link" data-target="lecture 6"><i class="fas fa-book fa-fw"></i> 6. Simulation of Two Server Queue System</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 7"><i class="fas fa-book fa-fw"></i> 7. Simulation of an Inventory System</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 8"><i class="fas fa-book fa-fw"></i> 8. Simulation of Newspaper Seller</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 9"><i class="fas fa-book fa-fw"></i> 9. Simulation of the Reliability Problem</a></li> -->
@@ -497,6 +497,85 @@
                                     START 250
                                 </code>
                             </pre>
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 6" class="content-panel">
+                        <h1>Topic: Simulation of Two-Server Queue System</h1>
+                        <div class="notes-container">
+                             <h2>What is a Two-Server Queue System?</h2>
+                             <p>
+                                A Two-Server Queue System is a service system where:
+                                <ul>
+                                    <li>One common queue.</li>
+                                    <li>Two servers to serve arriving customers.</li>
+                                    <li>Queue Discipline is FIFO (First-In-First-Out)</li>
+                                </ul>
+                                The system can handle more customers simultaneously, reducing wait time and increasing throughput compared to a single-server system.
+                             </p>
+                             <h3>Real-Life Examples</h3>
+                             <ul>
+                                <li>Two cashiers at a supermarket counter</li>
+                                <li>Two doctors in a clinic seeing patients from a single waiting area</li>
+                                <li>Two printers handling print jobs in a computer lab</li>
+                             </ul>
+                             <h3>System Behaviour</h3>
+                             <ol>
+                                <li>A customer arrives at the queue.</li>
+                                <li>If at least one server is free, the customer is served immediately.</li>
+                                <li>If both servers are busy, the customer waits in the queue.</li>
+                                <li>Once a server is free, the next customer in the queue is served.</li>
+                             </ol>
+                             <h2>Simulation Example</h2>
+                             <p>
+                                Simulate a two-server Bank queue system where:
+                                <ul>
+                                    <li>Number of Tellers: 2 for first 8 hours and 3 for next 8 hours.</li>
+                                    <li>Customer Arrival Rate: 1 to 3 minute.</li>
+                                    <li>Teller processing rate: 1 to 7 minutes.</li>
+                                    <li>Time required to enter queue: 1 minute.</li>
+                                    <li>Termination Condition: 16 hours.</li> 
+                                </ul>
+                                In GPSS, both servers can be managed using the same facility name with multiple units, e.g., a facility with capacity 2.
+                                <pre>
+                                    <code>
+                                        SIMULATE 
+
+                                        GENERATE 2,1 
+                                        ADVANCE 1 
+                                        QUEUE DESK 
+                                        ENTER TELRS 
+                                        DEPART DESK 
+                                        ADVANCE 4,3 
+                                        LEAVE TELRS 
+                                        TERMINATE 0 
+
+                                        *Timing Section * 
+                                        GENERATE 480 
+                                        TERMINATE 1
+
+                                        *Define Section * 
+                                        TELRS STORAGE 2 
+
+                                        *Control Section * 
+                                        START 1
+                                    </code>
+                                </pre>
+                            </p>
+
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 7" class="content-panel">
+                        <h1>Topic: Simulation of an Inventory System</h1>
+                        <div class="notes-container">
+                             <p>Embedded spreadsheet for Sessional Marks will be placed here.</p>
                         </div>
                          <!-- <div class="ad-container" style="margin-top: 40px;">
                             <span>Ad Banner Space</span>
