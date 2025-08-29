@@ -37,7 +37,7 @@
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 9"><i class="fas fa-book fa-fw"></i> 9. Simulation of the Reliability Problem</a></li> -->
                         <li><a href="#" class="tab-link" data-target="lecture 8"><i class="fas fa-book fa-fw"></i> 8. Discrete Statistical Models in Simulation</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 9"><i class="fas fa-book fa-fw"></i> 9. Continuous Statistical Models in Simulation</a></li>
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 12"><i class="fas fa-book fa-fw"></i> 12. Empirical Distributions</a></li> -->
+                        <li><a href="#" class="tab-link" data-target="lecture 10"><i class="fas fa-book fa-fw"></i> 10. Empirical Distributions</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 13"><i class="fas fa-book fa-fw"></i> 13. Random Variables and Their Properties</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 14"><i class="fas fa-book fa-fw"></i> 14. Random Number Generation</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 15"><i class="fas fa-book fa-fw"></i> 15. Tests for Random Numbers</a></li> -->
@@ -679,6 +679,128 @@
                             <p>Example: Stock prices, Income distribution. Values are positively skewed.</p>
                             <p><b>Triangular Distribution: </b>Defined by minimum, maximum, and most likely value.</p>
                             <p>Example: Project completion time, homework/task time.</p>
+
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 10" class="content-panel">
+                        <h1>Topic: Empirical Distributions</h1>
+                        <div class="notes-container">
+                            <h2>What are Empirical Distributions?</h2>
+                            <p>Empirical distributions are probability distributions derived from observed data rather than theoretical models.</p>
+                            <p>They represent the actual distribution of data points collected from real-world observations or experiments.</p>
+                            <p>When no theoretical distribution seems appropriate -> Empirical data</p>
+                            <h3>Why we use Empirical Distributions? (Importance of ED)</h3>
+                            <p>Empirical distributions are used when it is impossible or unnecessary to establish that a random variable has any particular parametric distribution.</p>
+                            <ul>
+                                <li>Reflects real-world variability and patterns.</li>
+                                <li>Useful when theoretical distributions do not fit the data well.</li>
+                                <li>Helps in understanding the underlying characteristics of the data.</li>
+                                <li>Essential for data-driven decision-making and analysis.</li>
+                                <li><b><u>Advantage</u>:</b> no assumption beyond the observed values in the sample.</li>
+                                <li><b><u>Disadvantage</u>:</b> sample might not cover the entire range of possible values.</li>
+                            </ul>
+                            <h3>How to Create Empirical Distributions</h3>
+                            <ol>
+                                <li><b>Collect Data:</b> Gather a sufficient amount of data relevant to the variable of interest.</li>
+                                <li><b>Sort Data:</b> Arrange the data points in ascending order.</li>
+                                <li><b>Calculate Frequencies:</b> Determine how often each value or range of values occurs.</li>
+                                <li><b>Construct CDF:</b> Create a cumulative distribution function (CDF) by calculating the cumulative frequencies.</li>
+                                <li><b>Visualize:</b> Plot the empirical distribution using histograms or CDF plots.</li>
+                            </ol>
+                            <h3>How to create a Cumulative Distribution Function (CDF)</h3>
+                            <p>To create a CDF from empirical data:</p>
+                            <ol>
+                                <li>Sort the data in ascending order.</li>
+                                <li>Calculate the cumulative frequency for each unique value.</li>
+                                <li>Divide the cumulative frequency by the total number of observations to get the cumulative probability.</li>
+                                <li>Plot the unique values on the x-axis and their corresponding cumulative probabilities on the y-axis.</li>
+                            </ol>
+                            <h3>Example of Empirical Distribution</h3>
+                            <p>Consider the following observed data points representing the time (in minutes) taken by customers to be served at a counter:</p>
+                            <p>2, 3, 5, 7, 3, 4, 6, 8, 5, 7</p>
+                            <p>Sorted Data: 2, 3, 3, 4, 5, 5, 6, 7, 7, 8</p>
+                            <p>Cumulative Frequencies:</p>
+                            <ul>
+                                <li>2: 1</li>
+                                <li>3: 3</li>
+                                <li>4: 4</li>
+                                <li>5: 6</li>
+                                <li>6: 7</li>
+                                <li>7: 9</li>
+                                <li>8: 10</li>
+                            </ul>
+                            <p>Total Observations: 10</p>
+                            <p>Cumulative Probabilities:</p>
+                            <ul>
+                                <li>2: 0.1</li>
+                                <li>3: 0.3</li>
+                                <li>4: 0.4</li>
+                                <li>5: 0.6</li>
+                                <li>6: 0.7</li>
+                                <li>7: 0.9</li>
+                                <li>8: 1.0</li>
+                            </ul>
+                            <p>The CDF can be plotted using these values.</p>
+                            <table border="1" cellpadding="6" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                    <th>Value (Minutes)</th>
+                                    <th>Cumulative Frequency</th>
+                                    <th>Cumulative Probability</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td>2</td>
+                                    <td>1</td>
+                                    <td>0.1</td>
+                                    </tr>
+                                    <tr>
+                                    <td>3</td>
+                                    <td>3</td>
+                                    <td>0.3</td>
+                                    </tr>
+                                    <tr>
+                                    <td>4</td>
+                                    <td>4</td>
+                                    <td>0.4</td>
+                                    </tr>
+                                    <tr>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>0.6</td>
+                                    </tr>
+                                    <tr>
+                                    <td>6</td>
+                                    <td>7</td>
+                                    <td>0.7</td>
+                                    </tr>
+                                    <tr>
+                                    <td>7</td>
+                                    <td>9</td>
+                                    <td>0.9</td>
+                                    </tr>
+                                    <tr>
+                                    <td>8</td>
+                                    <td>10</td>
+                                    <td>1.0</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <p>Below is the Empirical Cumulative Distribution Function (CDF) plot for the observed data. The red dots represent the cumulative probabilities at each observed value, and the step line shows how the probability accumulates.</p>
+                                <img src="./assets/cdf1.png" alt="Empirical Distribution CDF" style="max-width: 100%; height: auto; margin-top: 20px;">
+                            <p>This table and graph represent the empirical distribution of service times based on the observed data.</p>
+                            <h3>Applications of Empirical Distributions</h3>
+                            <ul>
+                                <li>Quality Control: Analyzing defect rates in manufacturing processes.</li>
+                                <li>Risk Management: Assessing financial risks based on historical data.</li>
+                                <li>Healthcare: Studying patient outcomes and treatment effectiveness.</li>
+                                <li>Marketing: Understanding customer behavior and preferences.</li>
+                            </ul>
 
                         </div>
                          <!-- <div class="ad-container" style="margin-top: 40px;">
