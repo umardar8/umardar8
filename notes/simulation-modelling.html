@@ -48,6 +48,7 @@
                         <li><a href="#" class="tab-link" data-target="lecture 8"><i class="fas fa-book fa-fw"></i> 8. Discrete Statistical Models in Simulation</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 9"><i class="fas fa-book fa-fw"></i> 9. Continuous Statistical Models in Simulation</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 10"><i class="fas fa-book fa-fw"></i> 10. Empirical Distributions</a></li>
+                        <li><a href="#" class="tab-link" data-target="lecture 11"><i class="fas fa-book fa-fw"></i> 11. Simulation of the Reliability Problem</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 13"><i class="fas fa-book fa-fw"></i> 13. Random Variables and Their Properties</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 14"><i class="fas fa-book fa-fw"></i> 14. Random Number Generation</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 15"><i class="fas fa-book fa-fw"></i> 15. Tests for Random Numbers</a></li> -->
@@ -814,6 +815,104 @@
                                 <li>Marketing: Understanding customer behavior and preferences.</li>
                             </ul>
 
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 11" class="content-panel">
+                        <h1>Topic: Simulation of the Reliability Problem</h1>
+                        <div class="notes-container">
+                             <p>Reliability refers to the probability that a system performs its intended function without failure for a given time period.</p>
+                             <p>In engineering, reliability problems often involve machines, networks, or systems with multiple components.</p>
+                             <p><b>Example:</b> A light bulb lasting 1,000 hours without burning out.</p>
+                             <p>Simulation is useful because reliability problems are often too complex for exact mathematical solutions, especially when:</p>
+                             <ul>
+                                <li>Systems have many components with different failure rates.</li>
+                                <li>Components have complex interactions.</li>
+                                <li>Failure and repair processes are stochastic (random).</li>
+                            </ul>
+                            <h2>Reliability Models</h2>
+                            <p><b>Series System:</b> The system fails if any component fails. Reliability is the product of individual component reliabilities.</p>
+                            <p><b>Parallel System:</b> The system works if at least one component works. Reliability is higher than individual components.</p>
+                            <p><b>Complex Systems:</b> Combinations of series and parallel configurations.</p>
+                            <h2>Simulation Steps for Reliability Problems</h2>
+                            <ol>
+                                <li>Define the system and its components.</li>
+                                <li>Assign failure and repair rates to each component.</li>
+                                <li>Simulate the operation of the system over time, tracking failures and repairs.</li>
+                                <li>Collect statistics on system uptime, downtime, and failure rates.</li>
+                                <li>Analyze results to estimate overall system reliability.</li>
+                            </ol>
+                            <h2>Example: Simulating a Simple Reliability Problem</h2>
+                            <p>Consider a system with two components in series, each with a failure rate of 0.01 failures per hour and a repair rate of 0.1 repairs per hour. We want to simulate the system's reliability over 1,000 hours.</p>
+                            <p>We are asked to simulate the reliability of a two-component series system where:</p>
+                            <ul>
+                                <li>Failure rate of each component (λ) = 0.01 failures/hour</li>
+                                <li>Repair rate of each component (µ) = 0.1 repairs/hour</li>
+                                <li>The system runs for 1,000 hours</li>
+                            </ul>
+                            <p>Since it is a series system, the system fails if any one component fails.</p>
+                            <h3>Step 1: Understand the Problem</h3>
+                            <p>In a series system: R<sub>system</sub>(t) = R<sub>1</sub>(t) x R<sub>2</sub>(t)</p>
+                            <p>But here, since components are repairable, it's not just about exponential reliability; we must simulate the up/down states of the system over time.</p>
+                            <p>The time-to-failure for each component is exponentially distributed with mean:</p>
+                            <p>MTTF = 1/λ = 1/0.01 = 100 hours</p>
+                            <p>The time-to-repair is also exponential with mean:</p>
+                            <p>MTTR = 1/µ = 1/0.1 = 10 hours</p>
+                            <h3>Step 2: Simulation Logic</h3>
+                            <p>We will simulate component lifetimes and repairs using exponential random variables:</p>
+                            <ul>
+                                <li>Generate time to failure for each component using an exponential distribution with mean 100 hours.</li>
+                                <li>When a component fails, generate a repair time using an exponential distribution with mean 10 hours.</li>
+                                <li>Track the system state (up or down) over the 1,000-hour period.</li>
+                                <li>Calculate the total uptime and downtime of the system.</li>
+                            </ul>
+                            <h3>Step 3: Implement the Simulation</h3>
+                            <p>Here is a simple pseudocode for the simulation:</p>
+                            <pre>
+                                <code>
+                                    Initialize system state as UP
+                                    Set total_time = 0
+                                    Set uptime = 0
+                                    Set downtime = 0
+
+                                    While total_time < 1000 hours:
+                                        If system is UP:
+                                            Generate time_to_failure_1 ~ Exponential(100)
+                                            Generate time_to_failure_2 ~ Exponential(100)
+                                            time_to_next_failure = min(time_to_failure_1, time_to_failure_2)
+                                            
+                                            If total_time + time_to_next_failure > 1000:
+                                                uptime += (1000 - total_time)
+                                                Break
+                                            
+                                            uptime += time_to_next_failure
+                                            total_time += time_to_next_failure
+                                            system state = DOWN
+                                        Else:
+                                            Generate repair_time ~ Exponential(10)
+                                            
+                                            If total_time + repair_time > 1000:
+                                                downtime += (1000 - total_time)
+                                                Break
+                                            
+                                            downtime += repair_time
+                                            total_time += repair_time
+                                            system state = UP
+
+                                    Print "Total Uptime:", uptime
+                                    Print "Total Downtime:", downtime
+                                    Print "System Reliability:", uptime / 1000
+                                </code>
+                            </pre>
+                            <h3>Step 4: Analyze Results</h3>
+                            <p>After running the simulation multiple times, we can average the results to estimate the system's reliability over the 1,000-hour period.</p>
+                            <p>For example, if after 1000 simulations, we find that the average uptime is 950 hours, the estimated reliability would be:</p>
+                            <p>R<sub>system</sub> = 950 / 1000 = 0.95 or 95%</p>
+                            <h3>Conclusion</h3>
+                            <p>Simulation provides a practical way to analyze the reliability of complex systems, especially when components are repairable and have stochastic failure and repair processes. By simulating the system's operation over time, we can gain insights into its performance and identify areas for improvement.</p>
                         </div>
                          <!-- <div class="ad-container" style="margin-top: 40px;">
                             <span>Ad Banner Space</span>
