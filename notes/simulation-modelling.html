@@ -49,8 +49,8 @@
                         <li><a href="#" class="tab-link" data-target="lecture 9"><i class="fas fa-book fa-fw"></i> 9. Continuous Statistical Models in Simulation</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 10"><i class="fas fa-book fa-fw"></i> 10. Empirical Distributions</a></li>
                         <li><a href="#" class="tab-link" data-target="lecture 11"><i class="fas fa-book fa-fw"></i> 11. Simulation of the Reliability Problem</a></li>
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 13"><i class="fas fa-book fa-fw"></i> 13. Random Variables and Their Properties</a></li> -->
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 14"><i class="fas fa-book fa-fw"></i> 14. Random Number Generation</a></li> -->
+                        <li><a href="#" class="tab-link" data-target="lecture 12"><i class="fas fa-book fa-fw"></i> 12. Random Variables and Their Properties</a></li>
+                        <li><a href="#" class="tab-link" data-target="lecture 13"><i class="fas fa-book fa-fw"></i> 13. Random Number Generation</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 15"><i class="fas fa-book fa-fw"></i> 15. Tests for Random Numbers</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 16"><i class="fas fa-book fa-fw"></i> 16. Event Scheduling / Time Advance Algorithm</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 17"><i class="fas fa-book fa-fw"></i> 17. Simulation of Dump Truck Problem</a></li> -->
@@ -873,38 +873,57 @@
                             <p>Here is a simple pseudocode for the simulation:</p>
                             <pre>
                                 <code>
-                                    Initialize system state as UP
-                                    Set total_time = 0
-                                    Set uptime = 0
-                                    Set downtime = 0
+                                    import numpy as np
 
-                                    While total_time < 1000 hours:
-                                        If system is UP:
-                                            Generate time_to_failure_1 ~ Exponential(100)
-                                            Generate time_to_failure_2 ~ Exponential(100)
-                                            time_to_next_failure = min(time_to_failure_1, time_to_failure_2)
-                                            
-                                            If total_time + time_to_next_failure > 1000:
-                                                uptime += (1000 - total_time)
-                                                Break
-                                            
-                                            uptime += time_to_next_failure
-                                            total_time += time_to_next_failure
-                                            system state = DOWN
-                                        Else:
-                                            Generate repair_time ~ Exponential(10)
-                                            
-                                            If total_time + repair_time > 1000:
-                                                downtime += (1000 - total_time)
-                                                Break
-                                            
-                                            downtime += repair_time
-                                            total_time += repair_time
-                                            system state = UP
+                                    # Parameters
+                                    failure_rate = 0.01   # per hour
+                                    repair_rate = 0.1     # per hour
+                                    simulation_time = 1000  # total hours
+                                    n_components = 2
 
-                                    Print "Total Uptime:", uptime
-                                    Print "Total Downtime:", downtime
-                                    Print "System Reliability:", uptime / 1000
+                                    np.random.seed(42)  # for reproducibility
+
+                                    # Initialize
+                                    time = 0
+                                    system_up_time = 0
+                                    system_down_time = 0
+                                    component_status = [1, 1]  # 1 = working, 0 = failed
+                                    next_failure = [np.random.exponential(1/failure_rate) for _ in range(n_components)]
+                                    next_repair = [np.inf for _ in range(n_components)]  # no repair scheduled initially
+
+                                    # Simulation loop
+                                    while time < simulation_time:
+                                        # Find next event (either failure or repair)
+                                        next_event_time = min(next_failure + next_repair)
+                                        if time + next_event_time > simulation_time:
+                                            next_event_time = simulation_time - time
+                                        
+                                        # Check if system is up during this interval
+                                        if all(component_status):  
+                                            system_up_time += next_event_time
+                                        else:
+                                            system_down_time += next_event_time
+                                        
+                                        # Advance time
+                                        time += next_event_time
+                                        
+                                        # Identify which event occurred
+                                        for i in range(n_components):
+                                            if next_failure[i] == next_event_time:  # failure event
+                                                component_status[i] = 0
+                                                next_failure[i] = np.random.exponential(1/failure_rate)  # schedule next failure
+                                                next_repair[i] = np.random.exponential(1/repair_rate)  # schedule repair
+                                            elif next_repair[i] == next_event_time:  # repair event
+                                                component_status[i] = 1
+                                                next_repair[i] = np.inf
+                                                next_failure[i] = np.random.exponential(1/failure_rate)
+
+                                    # Results
+                                    availability = system_up_time / simulation_time
+                                    print("Total Simulation Time:", simulation_time, "hours")
+                                    print("System Up Time:", round(system_up_time, 2), "hours")
+                                    print("System Down Time:", round(system_down_time, 2), "hours")
+                                    print("Estimated Availability:", round(availability, 4))
                                 </code>
                             </pre>
                             <h3>Step 4: Analyze Results</h3>
@@ -913,6 +932,178 @@
                             <p>R<sub>system</sub> = 950 / 1000 = 0.95 or 95%</p>
                             <h3>Conclusion</h3>
                             <p>Simulation provides a practical way to analyze the reliability of complex systems, especially when components are repairable and have stochastic failure and repair processes. By simulating the system's operation over time, we can gain insights into its performance and identify areas for improvement.</p>
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 12" class="content-panel">
+                        <h1>Topic: Random Variables and Their Properties</h1>
+                        <div class="notes-container">
+                            <p>In simulation, many systems involve uncertainty (like customer arrivals, service times, or machine failures). To model this uncertainty, we use random variables.</p>
+                            <h2>What is a Random Variable?</h2>
+                            <p>A random variable (RV) is a variable whose value depends on the outcome of a random experiment. It assigns a numerical value to each possible outcome.</p>
+                            <p>
+                                <b>Example: </b>Tossing a coin.
+                                <ul>
+                                    <li>Let X be a random variable representing the outcome of the coin toss.</li>
+                                    <li>X can take values: 0 (tails) or 1 (heads).</li>
+                                </ul>
+                            </p>
+                            <h3>Types of Random Variables:</h3>
+                            <p>
+                                <b>Discrete Random Variables:</b> Take on a countable number of distinct values (e.g., number of customers arriving in an hour).
+                                <br>
+                                <b>Continuous Random Variables:</b> Take on any value within a range (e.g., time taken to serve a customer).
+                            </p>
+                            <h3>Properties of Random Variables:</h3>
+                            <p>
+                                <b>Probability Distribution:</b> Describes how probabilities are distributed over the values of the random variable.
+                                <br><br>
+                                <b>Expected Value (Mean):</b> The long-term average value of the random variable. For a discrete RV, it is calculated as:
+                                <br><br>
+                                E(X) = Σ [x * P(X=x)]
+                                <br><br>
+                                For a continuous RV, it is calculated using an integral:
+                                <br><br>
+                                E(X) = ∫ x * f(x) dx
+                                <br><br>
+                                where f(x) is the probability density function (PDF).
+                                <br><br>
+                                <b>Variance and Standard Deviation:</b> Measure the spread or variability of the random variable around its mean.
+                                <br><br>
+                                Variance: Var(X) = E(x^2) - (E(X))^2
+                                <br><br>
+                                Standard Deviation: SD(X) = √Var(X)
+                                <br><br>
+                                <b>Cumulative Distribution Function (CDF):</b> Gives the probability that the random variable is less than or equal to a certain value.
+                                <br><br>                            F(x) = P(X ≤ x)
+                            </p>
+                            
+                            <h3>Example Calculation:</h3>
+                            <p>
+                                Consider a discrete random variable X representing the number of heads in two coin tosses. The possible values of X are 0, 1, and 2.
+                                <ul>
+                                    <li>P(X=0) = 1/4 (TT)</li>
+                                    <li>P(X=1) = 2/4 (HT, TH)</li>
+                                    <li>P(X=2) = 1/4 (HH)</li>
+                                </ul>
+                                <br>
+                                <b>Expected Value:</b>
+                                <br>
+                                E(X) = 0*(1/4) + 1*(2/4) + 2*(1/4) = 0 + 0.5 + 0.5 = 1
+                                <br><br>
+                                <b>Variance:</b>
+                                <br>
+                                Var(X) = E(X^2) - [E(X)]^2
+                                <br>
+                                E(X^2) = 0^2*(1/4) + 1^2*(2/4) + 2^2*(1/4) = 0 + 0.5 + 1 = 1.5
+                                <br>
+                                Var(X) = 1.5 - (1)^2 = 1.5 - 1 = 0.5
+                                <br><br>
+                                <b>Standard Deviation:</b>
+                                <br>
+                                SD(X) = √Var(X) = √0.5 ≈ 0.707
+                            </p>
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                            <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+                    
+                    <div id="lecture 13" class="content-panel">
+                        <h1>Topic: Random Number Generation</h1>
+                        <div class="notes-container">
+                             <p>Random numbers are the heart of simulation. Whenever we simulate events such as customer arrivals, machine failures, service times, or coin tosses, we need random numbers to represent uncertainty.</p>
+                            <p>
+                                In simulation, random numbers are used to:
+                                <ul>
+                                    <li>Generate random variables (e.g., exponential or normal times).</li>
+                                    <li>Model stochastic systems where outcomes are not predictable.</li>
+                                    <li>Perform Monte Carlo simulations.</li>
+                                </ul>
+                            </p>
+                            <h3>True Random vs. Pseudo-Random Numbers</h3>
+                            <p>
+                                <b>True Random Numbers</b>
+                                <ul>
+                                    <li>Generated from physical processes like radioactive decay, atmospheric noise, or thermal fluctuations.</li>
+                                    <li>They are truly unpredictable.</li>
+                                    <li>Used in high-security applications (e.g., cryptography).</li>
+                                    <li><b>Example:</b> Hardware random number generators.</li>
+                                </ul>
+                            </p>
+                            <p>
+                                <b>Pseudo Random Numbers (PRNs)</b>
+                                <ul>
+                                    <li>Generated using mathematical algorithms.</li>
+                                    <li>Appear random but are deterministic (repeatable if the same seed is used).</li>
+                                    <li>Used in most computer simulations.</li>
+                                    <li>In simulation, we use pseudo-random numbers because they are fast, repeatable, and sufficient for modeling uncertainty.</li>
+                                </ul>
+                                In simulation, we use pseudo-random numbers because they are fast, repeatable, and sufficient for modeling uncertainty.
+                            </p>
+                            <h3>Properties of Good Random Numbers</h3>
+                            <p>
+                                To be useful in simulation, generated random numbers must have:
+                                
+                                <ul>
+                                    <li>Uniformity — numbers should be evenly spread in [0, 1).</li>
+                                    <li>Independence — each number should not depend on the previous ones.</li>
+                                    <li>Reproducibility — same seed produces the same sequence for testing.</li>
+                                    <li>Long Period — sequence should not repeat quickly.</li>
+                                </ul>
+                            </p>
+                            <h3>Methods of Random Number Generation</h3>
+                            <p>
+                                <b>Linear Congruential Generator (LCG): </b>One of the oldest and most widely used methods.
+                                <br><br>
+                                Formula: 𝑋𝑛+1 = ( 𝑎𝑋𝑛 + 𝑐 ) mod 𝑚
+                                <br><br>
+                                where:
+                                <br><br>
+                                𝑋𝑛	​ = current random number
+                                <br>
+                                𝑎 = multiplier
+                                <br>
+                                𝑐 = increment
+                                <br>
+                                𝑚 = modulus
+                                <br>
+                                𝑋0	​ = seed
+                                <br><br>
+                                The generated random numbers are in the range [0, m–1].
+                                <br><br>
+                                To get a uniform random number between 0 and 1:
+                                <br><br>
+                                𝑅𝑛 = 𝑋𝑛/𝑚
+                                <br><br>
+                                Example:
+                                <br><br>
+                                𝑎 = 5, 𝑐 = 3, 𝑚 = 16, 𝑋0 = 7
+                                <br>
+                                → 𝑋1 = ( 5×7 + 3 )mod  16 = 6
+                            </p>
+                            <p>
+                                <b>Other Methods:</b>
+                                <ul>
+                                    <li>Middle Square Method: Square the number and extract middle digits (obsolete due to short cycles).</li>
+                                    <li>Combined Linear Congruential Generators (CLCG): Combine multiple LCGs for better randomness.</li>
+                                    <li>Built-in Generators: Modern languages (like Python’s random or NumPy) use advanced algorithms such as the Mersenne Twister, known for its very long period and excellent statistical properties.</li>
+                                </ul>
+                            </p>
+                            <h3>Random Number Generation in Python:</h3>
+                            <p>
+                                <pre>
+                                    import random
+                                    random.seed(5)          # Set seed for reproducibility
+                                    print(random.random())  # Generates a random number between 0 and 1
+                                </pre>
+                                <b>Output:</b> 0.62290169489
+                                <br><br>
+                                Every time you use the same seed, you get the same number sequence.
+                            </p>
                         </div>
                          <!-- <div class="ad-container" style="margin-top: 40px;">
                             <span>Ad Banner Space</span>
