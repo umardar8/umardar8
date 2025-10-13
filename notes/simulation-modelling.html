@@ -56,7 +56,7 @@
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 17"><i class="fas fa-book fa-fw"></i> 17. Simulation of Dump Truck Problem</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 18"><i class="fas fa-book fa-fw"></i> 18. Simulating Basic Probability Scenarios</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 19"><i class="fas fa-book fa-fw"></i> 19. Simulating Conditional Probabilities, Means, and Variances</a></li> -->
-                        <!-- <li><a href="#" class="tab-link" data-target="lecture 20"><i class="fas fa-book fa-fw"></i> 20. The Computation of Definite Integrals</a></li> -->
+                        <li><a href="#" class="tab-link" data-target="lecture 16"><i class="fas fa-book fa-fw"></i> 16. The Computation of Definite Integrals</a></li>
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 21"><i class="fas fa-book fa-fw"></i> 21. Simulating Queuing Problem</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 22"><i class="fas fa-book fa-fw"></i> 22. Simulating Closed Networks of Queues</a></li> -->
                         <!-- <li><a href="#" class="tab-link" data-target="lecture 23"><i class="fas fa-book fa-fw"></i> 23. The Machine Repairman Problem</a></li> -->
@@ -1216,6 +1216,73 @@
                         </div>
                          <!-- <div class="ad-container" style="margin-top: 40px;">
                             <span>Ad Banner Space</span>
+                        </div> -->
+                    </div>
+
+                    <div id="lecture 16" class="content-panel">
+                        <h1>Topic: The Computation of Definite Integrals</h1>
+                        <div class="notes-container">
+                            <p>This lecture covers the meaning of definite integrals, why they matter in simulation, and numerical methods to compute them when analytic solutions are impractical.</p>
+
+                            <h2>1. What is a definite integral?</h2>
+                            <p>A definite integral finds the total amount under a curve between two points <em>a</em> and <em>b</em>. It is written as:</p>
+                            <p>∫<sub>a</sub><sup>b</sup> f(x) dx</p>
+                            <p>The result is a single number: the total area under the curve from <em>a</em> to <em>b</em>.</p>
+
+                            <h2>2. Why use integrals in simulation?</h2>
+                            <ul>
+                                <li>To find probabilities for continuous variables (e.g., chance that waiting time is between two values)</li>
+                                <li>To compute expected values like the average time or average cost</li>
+                                <li>To add up quantities that change continuously over time</li>
+                            </ul>
+
+                            <h2>3. Simple methods to compute integrals</h2>
+                            <p>When a formula is hard or impossible to integrate exactly, we use simple approximation methods:</p>
+
+                            <h3>Trapezoidal Rule</h3>
+                            <p>Divide the area into thin trapezoids and add their areas. Good for many smooth functions.</p>
+                            <p>Approx ≈ (h/2) [f(a) + 2f(x1) + 2f(x2) + ... + f(b)]</p>
+
+                            <h3>Simpson's Rule</h3>
+                            <p>Use parabolas to fit small sections of the curve; more accurate if the function is smooth. Works with an even number of intervals.</p>
+                            <p>Approx ≈ (h/3) [f(a) + 4f(odd points) + 2f(even points) + f(b)]</p>
+
+                            <h3>Monte Carlo Method</h3>
+                            <p>Pick many random points in the interval and estimate the average value of the function. Multiply the average by (b − a). Useful for hard or multi-dimensional problems.</p>
+                            <p>Approx ≈ (b - a) * (1/N) * Σ f(xᵢ)</p>
+
+                            <h2>4. A simple example</h2>
+                            <p>Find the area under f(x) = x² from 0 to 2.</p>
+                            <p>Exact answer: ∫<sub>0</sub><sup>2</sup> x² dx = x³/3 |<sub>0</sub><sup>2</sup> = 8/3 ≈ 2.67</p>
+                            <p>You can get a similar answer using the trapezoidal or Simpson’s rule with a few intervals.</p>
+
+                            <h2>5. Quick tips</h2>
+                            <ul>
+                                <li>Use more intervals (smaller h) to get better accuracy for trapezoidal and Simpson.</li>
+                                <li>Use Simpson’s rule for smooth functions when possible.</li>
+                                <li>Use Monte Carlo for very complex or high-dimensional integrals.</li>
+                            </ul>
+
+                            <h2>6. Summary</h2>
+                            <p>Definite integrals let us compute totals for changing quantities. When exact integration is hard, numerical methods like trapezoidal, Simpson’s, and Monte Carlo help us estimate the integral.</p>
+
+                            <h2>When to Use Which Method?</h2>
+                            <table border="1">
+                                <tr><th>Method</th><th>Best For</th><th>Pros</th><th>Cons</th></tr>
+                                <tr><td>Trapezoidal</td><td>1D smooth functions</td><td>Simple, fast</td><td>Less accurate than Simpson for same n</td></tr>
+                                <tr><td>Simpson’s</td><td>1D smooth functions</td><td>High accuracy for smooth curves</td><td>Requires even n</td></tr>
+                                <tr><td>Monte Carlo</td><td>High-dim / irregular</td><td>Dimensionally robust</td><td>Slow convergence</td></tr>
+                            </table>
+
+                            <h2>Key Takeaways</h2>
+                            <ul>
+                                <li>Definite integrals are essential in simulation for probabilities and expectations.</li>
+                                <li>Analytical integration is ideal when possible; otherwise use numerical methods.</li>
+                                <li>Compare methods by accuracy, complexity, and dimensionality of the problem.</li>
+                            </ul>
+                        </div>
+                         <!-- <div class="ad-container" style="margin-top: 40px;">
+                             <span>Ad Banner Space</span>
                         </div> -->
                     </div>
 
