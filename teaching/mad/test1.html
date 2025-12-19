@@ -15,7 +15,7 @@
         </div>
 
         <iframe 
-            src="https://forms.microsoft.com/r/v5Scnxk5h7?embed=true" 
+            src="https://forms.microsoft.com/r/7dbQbevxRJ?embed=true" 
             class="quiz-iframe" 
             frameborder="0" 
             marginheight="0" 
@@ -25,8 +25,8 @@
 
     <div id="cheating-overlay">
         <h1>⚠️ Quiz Locked</h1>
-        <p>You have moved away from the quiz tab too many times.</p>
-        <p>Please contact your teacher for the next steps. The violation count has been recorded.</p>
+        <p>Beta Aap ko Mana Kiya tha Na | No Cheating! 😠</p>
+        <p>Violation count has been recorded.</p>
     </div>
 
     <script>
@@ -94,7 +94,7 @@
         let firstViolation = true;
         document.addEventListener('visibilitychange', () => {
             if (document.hidden && firstViolation) {
-                alert("Warning: Moving away from the quiz tab is being monitored. Further violations will lock the quiz.");
+                alert("SHABASHH!! 🤦‍♂️ You moved away from quiz tab. Further violations will lock the quiz.");
                 firstViolation = false;
             }
         });
