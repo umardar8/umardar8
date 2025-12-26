@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Application Development (MAD) | Class Test</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div id="status-bar">
+            <div class="proctor-status">📝 Quiz in Progress</div>
+            <div id="violation-counter">Violations: 0 / 3</div>
+        </div>
+
+        <iframe 
+            src="https://forms.microsoft.com/r/C79E4u1fzc?embed=true" 
+            class="quiz-iframe"
+            frameborder="0" 
+            marginheight="0" 
+            marginwidth="0">
+        </iframe>
+    </div>
+
+    <div id="cheating-overlay">
+        <h1>⚠️ Quiz Locked</h1>
+        <p>Beta Aap ko Mana Kiya tha Na | No Cheating! 😠</p>
+        <p>The violation count has been recorded.</p>
+    </div>
+
+    <script>
+        // --- Configuration ---
+        const MAX_VIOLATIONS = 3; // The number of times a student can leave before the quiz is locked.
+
+        // --- DOM Elements ---
+        const violationCounterElement = document.getElementById('violation-counter');
+        const cheatingOverlayElement = document.getElementById('cheating-overlay');
+
+        // --- State ---
+        let violationCount = 0;
+        let isQuizLocked = false;
+
+        // --- Core Logic ---
+        function handleViolation() {
+            if (isQuizLocked) {
+                return; // Do nothing if the quiz is already locked
+            }
+            
+            violationCount++;
+            console.warn(`Violation detected: ${violationCount}`);
+            
+            // Update the UI
+            updateViolationCounter();
+
+            // Check if the maximum violations have been reached
+            if (violationCount >= MAX_VIOLATIONS) {
+                lockQuiz();
+            }
+        }
+
+        function updateViolationCounter() {
+            violationCounterElement.textContent = `Violations: ${violationCount} / ${MAX_VIOLATIONS}`;
+            // Change color to red when violations are detected
+            if (violationCount > 0) {
+                violationCounterElement.style.backgroundColor = 'var(--danger-color)';
+            }
+        }
+
+        function lockQuiz() {
+            isQuizLocked = true;
+            // Show the full-screen overlay to block the quiz
+            cheatingOverlayElement.style.display = 'flex';
+            console.error("Quiz Locked due to excessive violations.");
+        }
+
+        // --- Event Listeners ---
+
+        // 1. Page Visibility API: The most reliable method.
+        // Fires when the content of a tab has become visible or has been hidden.
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                handleViolation();
+            }
+        });
+
+        // 2. Window Focus/Blur Events: A good fallback.
+        // Fires when the window loses or gains focus.
+        // window.addEventListener('blur', () => {
+        //     handleViolation();
+        // });
+
+        // Optional: Alert the user on the first violation.
+        let firstViolation = true;
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && firstViolation) {
+                alert("SHABASHH!!🤦‍♂️ Further violations will lock the quiz.");
+                firstViolation = false;
+            }
+        });
+
+    </script>
+</body>
+</html>
