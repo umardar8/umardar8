@@ -1,7 +1,23 @@
-## Hi there 👋 I am Umar Farooq, Web & Mobile Developer!
+# 🧙‍♂️ Welcome to My Realm!
 
-- 🔭 I’m currently working on Chatty - a Geolocation based instant messaging app with Augmented Reality
-- 🌱 I’m currently learning and trying different JavaScript frameworks
-- 👯 I’m looking to collaborate on projects that involve MERN or Android Development
-- 💬 Ask me about HTML/CSS, Javascript, React, Vite, Java, Kotlin, Node.js, React Expo & React Native
-- 📫 How to reach me: umerfarooqdar.official@gmail.com
+### Character Stats
+| Attribute | Level | Special Moves |
+|:---:|:---:|:---|
+| **Code Sorcery** | Lvl 99 | `Full Stack Dev`, `Bug Squashing` |
+| **Creativity** | Lvl 85 | `Digital Marketing`, `Content Creation` |
+| **Stamina** | Lvl 10 | `Coffee Consumption`, `All-Nighters` |
+| **Weapon** | Legendary | `VS Code`, `MacBook Pro` |
+
+---
+
+### 🛡️ Current Quest
+> **Mission:** Building the ultimate portfolio and mastering AI integration.  
+> **Status:** ▓▓▓▓▓▓▓▓▓▓ 85% Complete  
+> **Loot Dropped:** [Link to Project 1], [Link to Project 2]
+
+### 🔮 Skill Tree
+`JavaScript` • `React` • `Python` • `SEO` • `Machine Learning`
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=umardar8&show_icons=true&theme=radical&hide_border=true" />
+</div>
