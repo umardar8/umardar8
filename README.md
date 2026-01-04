@@ -1,6 +1,10 @@
-👦🏻 [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=Hello+I'm+Umar+Farooq;Welcome+to+my+GitHub+Profile)](https://git.io/typing-svg)
+<div align='center'>
+<h1> 👦🏻 Hello, I'm Umar Farooq </h1>
 
 ![masterhead](https://user-images.githubusercontent.com/10498744/210012254-234538ff-d198-48aa-8964-37e6fd45d227.gif)
+
+![Typing SVG](https://readme-typing-svg.demolab.com/?lines=A+Mobile+&+Web+Developer;Welcome+to+my+GitHub)
+</div>
 
 ### My Stats
 | Attribute | Level | Special Moves |
@@ -17,7 +21,7 @@
 ### 🛡️ Current Quest
 > **Mission:** Building the ultimate learning and growth experiences while mastering web & mobile development.  
 > **Status:** ▓▓▓▓▓▓▓▓▓▓ 85% Complete  
-> **Loot Dropped:** [Aaj Kiya Pakayen | React Web App], [My Portfolio | HTML5/CSS3/Bootstrap/JS](https://umarfarooqdar.vercel.app), [Freelancing Course in Urdu | Java Kotlin](https://play.google.com/store/apps/details?id=pk.geekyacademy.freelancingcourse)
+> **Loot Dropped:** [Aaj Kiya Pakayen](https://aaj-kiya-pakayen.vercel.app), [Portfolio](https://umarfarooqdar.vercel.app), [Freelancing Course in Urdu](https://play.google.com/store/apps/details?id=pk.geekyacademy.freelancingcourse)
 
 ### 🔮 Skill Tree
 `JavaScript` • `React` • `Python` • `Java` • `Kotlin` • `Dart`
