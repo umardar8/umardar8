@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Fundamentals Quiz</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+            --bg-color: #f4f7f6;
+            --card-color: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: var(--card-color);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .question-section {
+            margin-bottom: 20px;
+        }
+
+        #question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .btn-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .btn {
+            background-color: #e9ecef;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            color: #333;
+        }
+
+        .btn:hover:not([disabled]) {
+            background-color: #dbe2ef;
+            border-color: #cbd5e0;
+        }
+
+        .btn.correct {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .btn.wrong {
+            background-color: var(--error-color);
+            color: white;
+            border-color: var(--error-color);
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #next-btn, #restart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: none; /* Hidden by default */
+        }
+
+        #next-btn:hover, #restart-btn:hover {
+            background-color: #357abd;
+        }
+
+        #score-display {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div id="quiz-wrapper">
+            <h1>Web Dev Quiz</h1>
+            <div class="controls" style="justify-content: center; margin-bottom: 15px;">
+                <span id="progress">Question 1 / 15</span>
+            </div>
+            
+            <div class="question-section">
+                <div id="question-text">Question goes here</div>
+                <div id="answer-buttons" class="btn-grid">
+                    </div>
+            </div>
+
+            <div class="controls">
+                <span id="score-display">Score: 0</span>
+                <button id="next-btn">Next Question</button>
+            </div>
+        </div>
+
+        <div id="result-wrapper" class="hide">
+            <h2>Quiz Completed!</h2>
+            <p style="font-size: 1.2rem;">You scored <span id="final-score" style="font-weight:bold; color:var(--primary-color);"></span> out of 15.</p>
+            <p id="feedback-message"></p>
+            <button id="restart-btn" style="display:inline-block; margin-top:15px;">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questionText = document.getElementById('question-text');
+        const answerButtonsElement = document.getElementById('answer-buttons');
+        const nextButton = document.getElementById('next-btn');
+        const restartButton = document.getElementById('restart-btn');
+        const scoreDisplay = document.getElementById('score-display');
+        const progressDisplay = document.getElementById('progress');
+        const quizWrapper = document.getElementById('quiz-wrapper');
+        const resultWrapper = document.getElementById('result-wrapper');
+        const finalScoreSpan = document.getElementById('final-score');
+        const feedbackMessage = document.getElementById('feedback-message');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        // The exact 15 questions you provided
+        const questions = [
+            {
+                question: "In HTML, which tag is used to define the largest heading?",
+                answers: [
+                    { text: "<h6>", correct: false },
+                    { text: "<head>", correct: false },
+                    { text: "<h1>", correct: true },
+                    { text: "<header>", correct: false }
+                ]
+            },
+            {
+                question: "Which HTML attribute is used to specify the URL of an image?",
+                answers: [
+                    { text: "href", correct: false },
+                    { text: "src", correct: true },
+                    { text: "link", correct: false },
+                    { text: "alt", correct: false }
+                ]
+            },
+            {
+                question: "Which tag is used to create a hyperlink in HTML?",
+                answers: [
+                    { text: "<a>", correct: true },
+                    { text: "<link>", correct: false },
+                    { text: "<href>", correct: false },
+                    { text: "<url>", correct: false }
+                ]
+            },
+            {
+                question: "In CSS, which property is used to change the text color of an element?",
+                answers: [
+                    { text: "font-color", correct: false },
+                    { text: "color", correct: true },
+                    { text: "text-color", correct: false },
+                    { text: "background-color", correct: false }
+                ]
+            },
+            {
+                question: "How do you select an element with the id 'header' in CSS?",
+                answers: [
+                    { text: ".header", correct: false },
+                    { text: "header", correct: false },
+                    { text: "#header", correct: true },
+                    { text: "*header", correct: false }
+                ]
+            },
+            {
+                question: "Which keyword is used to declare a variable in JavaScript?",
+                answers: [
+                    { text: "dim", correct: false },
+                    { text: "let", correct: true },
+                    { text: "variable", correct: false },
+                    { text: "int", correct: false }
+                ]
+            },
+            {
+                question: "Which operator checks for both value and type equality in JavaScript?",
+                answers: [
+                    { text: "==", correct: false },
+                    { text: "=", correct: false },
+                    { text: "!=", correct: false },
+                    { text: "===", correct: true }
+                ]
+            },
+            {
+                question: "What is the correct syntax to create a function in JavaScript?",
+                answers: [
+                    { text: "function myFunction()", correct: true },
+                    { text: "def myFunction()", correct: false },
+                    { text: "func myFunction()", correct: false },
+                    { text: "create myFunction()", correct: false }
+                ]
+            },
+            {
+                question: "Which utility class in Bootstrap is used to add padding to all sides of an element?",
+                answers: [
+                    { text: "m-*", correct: false },
+                    { text: "p-*", correct: true },
+                    { text: "pad-*", correct: false },
+                    { text: "space-*", correct: false }
+                ]
+            },
+            {
+                question: "In React, what is the language that looks like HTML but allows you to write HTML + Javascript in same file?",
+                answers: [
+                    { text: "HTML5", correct: false },
+                    { text: "XML", correct: false },
+                    { text: "JSX", correct: true },
+                    { text: "JavaHTML", correct: false }
+                ]
+            },
+            {
+                question: "What is used to pass data from a parent component to a child component in React?",
+                answers: [
+                    { text: "State", correct: false },
+                    { text: "Props", correct: true },
+                    { text: "Context", correct: false },
+                    { text: "Redux", correct: false }
+                ]
+            },
+            {
+                question: "Which React hook is commonly used to add state to a variable?",
+                answers: [
+                    { text: "useEffect", correct: false },
+                    { text: "useContext", correct: false },
+                    { text: "useState", correct: true },
+                    { text: "useReducer", correct: false }
+                ]
+            },
+            {
+                question: "Which git command is used to add your files / changes to the git?",
+                answers: [
+                    { text: "git push", correct: false },
+                    { text: "git commit", correct: false },
+                    { text: "git add", correct: true },
+                    { text: "git log", correct: false }
+                ]
+            },
+            {
+                question: "What is the purpose of 'git push'?",
+                answers: [
+                    { text: "To download changes", correct: false },
+                    { text: "To upload local commits to a remote repository", correct: true },
+                    { text: "To merge branches", correct: false },
+                    { text: "To save changes locally", correct: false }
+                ]
+            },
+            {
+                question: "What is a 'Repository' in GitHub?",
+                answers: [
+                    { text: "A programming language", correct: false },
+                    { text: "A user profile", correct: false },
+                    { text: "A storage location for a project's files and history", correct: true },
+                    { text: "A code editor", correct: false }
+                ]
+            }
+        ];
+
+        startQuiz();
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizWrapper.classList.remove('hide');
+            resultWrapper.classList.add('hide');
+            scoreDisplay.innerText = `Score: ${score}`;
+            nextButton.innerText = 'Next Question';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            let currentQuestion = questions[currentQuestionIndex];
+            let questionNo = currentQuestionIndex + 1;
+            
+            questionText.innerText = currentQuestion.question;
+            progressDisplay.innerText = `Question ${questionNo} / ${questions.length}`;
+
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.innerText = answer.text;
+                button.classList.add('btn');
+                if (answer.correct) {
+                    button.dataset.correct = answer.correct;
+                }
+                button.addEventListener('click', selectAnswer);
+                answerButtonsElement.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextButton.style.display = 'none';
+            while (answerButtonsElement.firstChild) {
+                answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const isCorrect = selectedBtn.dataset.correct === "true";
+            
+            if (isCorrect) {
+                selectedBtn.classList.add('correct');
+                score++;
+                scoreDisplay.innerText = `Score: ${score}`;
+            } else {
+                selectedBtn.classList.add('wrong');
+            }
+
+            // Show correct answer automatically if wrong one picked
+            Array.from(answerButtonsElement.children).forEach(button => {
+                if (button.dataset.correct === "true") {
+                    button.classList.add('correct');
+                }
+                button.disabled = true; // Disable all buttons after selection
+            });
+
+            if (questions.length > currentQuestionIndex + 1) {
+                nextButton.style.display = 'block';
+            } else {
+                nextButton.innerText = 'Show Results';
+                nextButton.style.display = 'block';
+            }
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        restartButton.addEventListener('click', startQuiz);
+
+        function showResults() {
+            quizWrapper.classList.add('hide');
+            resultWrapper.classList.remove('hide');
+            finalScoreSpan.innerText = score;
+            
+            let message = "";
+            if (score === 15) {
+                message = "Perfect Score! You are a web dev wizard! 🌟";
+            } else if (score >= 10) {
+                message = "Great job! You have a solid foundation. 👍";
+            } else {
+                message = "Keep practicing! Review the material and try again. 📚";
+            }
+            feedbackMessage.innerText = message;
+        }
+    </script>
+</body>
+</html>
