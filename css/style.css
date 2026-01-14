@@ -125,6 +125,7 @@ main {
     justify-content: center;
     min-height: 90vh;
     gap: 50px;
+    background-color: var(--bg-light-dark);
 }
 .intro-text h1 { font-size: 4rem; margin: 0 0 10px 0; }
 .intro-text h2 { font-size: 2rem; color: var(--text-slate); margin: 0 0 20px 0; }
@@ -161,12 +162,166 @@ main {
 .subject-card ul a:hover { color: var(--accent-color); }
 .subject-card ul a i { margin-right: 10px; color: var(--accent-color); width: 20px; text-align: center; }
 
-/* Blog Section */
-.blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
-.blog-post-card { background-color: var(--bg-light-dark); border-radius: 8px; padding: 25px; transition: transform 0.3s ease; }
-.blog-post-card:hover { transform: translateY(-5px); }
-.blog-post-card h3 { font-size: 1.4rem; margin-top: 0; }
-.blog-post-meta { font-size: 0.9rem; color: var(--text-slate); margin-bottom: 15px; }
+/* --- Updates Section Layout --- */
+
+#updates {
+    background-color: var(--bg-light-dark);
+}
+.updates-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.column-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- LinkedIn Specific Styles --- */
+.linkedin-card {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.linkedin-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-color: #0077b5;
+}
+
+.li-date {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.li-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.li-snippet {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.view-all-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #0077b5;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* --- WhatsApp Specific Styles --- */
+.wa-channel-container {
+    background-color: #f0f2f5;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    background-blend-mode: overlay;
+    background-size: 400px;
+}
+
+.wa-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.wa-profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+}
+
+.wa-info h4 { margin: 0; font-size: 0.95rem; }
+.wa-info span { font-size: 0.75rem; color: #666; }
+
+.wa-message-bubble {
+    background: #fff;
+    border-radius: 0 12px 12px 12px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    width: fit-content;
+    max-width: 90%;
+}
+
+.wa-message-bubble.latest { background: #d9fdd3; }
+
+.wa-message-bubble p { margin: 0; font-size: 0.9rem; line-height: 1.4; color: #555; }
+
+.wa-meta {
+    display: block;
+    text-align: right;
+    font-size: 0.65rem;
+    color: #888;
+    margin-top: 4px;
+}
+
+.wa-join-btn {
+    background-color: #25D366;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    transition: background 0.3s;
+}
+
+.wa-join-btn:hover { background-color: #1ebe57; }
+
+/* Responsive: Stack columns on mobile */
+@media (max-width: 768px) {
+    .updates-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+.active-subject {
+    border-left: 4px solid #007bff;
+    position: relative;
+}
+
+.badge {
+    background-color: #e3f2fd;
+    color: #007bff;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-weight: bold;
+}
 
 /* Single Article Page */
 .blog-article .article-header { text-align: center; margin-bottom: 50px; }
@@ -181,7 +336,7 @@ main {
 .ad-container { width: 100%; min-height: 90px; background-color: var(--bg-dark); border: 1px dashed var(--text-slate); display: flex; justify-content: center; align-items: center; color: var(--text-slate); font-family: var(--font-main); }
 
 /* Contact Section */
-#contact { text-align: center; }
+#contact { text-align: center; background-color: var(--bg-light-dark);}
 .contact-form { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
 .contact-form input, .contact-form textarea { width: 100%; box-sizing: border-box; padding: 15px; border-radius: 5px; border: 1px solid var(--text-slate); background-color: var(--bg-light-dark); color: var(--text-light); font-family: var(--font-body); font-size: 1rem; }
 
