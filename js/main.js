@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Load header and footer into their respective placeholder elements
-    loadHTML('header.main-header', './partials/header.html');
-    loadHTML('footer.main-footer', './partials/footer.html');
+    loadHTML('header.main-header', '/partials/header.html');
+    loadHTML('footer.main-footer', '/partials/footer.html');
 
     
 });
